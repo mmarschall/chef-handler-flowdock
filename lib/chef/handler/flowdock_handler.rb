@@ -16,22 +16,30 @@
 require 'chef/handler'
 require 'flowdock'
 
-class FlowdockHandler < Chef::Handler
+class Chef
+  class Handler
+    class FlowdockHandler < Chef::Handler
 
-  def initialize(options = {})
-    @from = options[:from] || nil
-    @flow = Flowdock::Flow.new(:api_token => options[:api_token],
-                               :source => options[:source] || "Chef Client")
-  end
+      def initialize(options = {})
+        @from = options[:from] || nil
+        @flow = Flowdock::Flow.new(:api_token => options[:api_token],
+                                   :source => options[:source] || "Chef Client")
+      end
 
-  def report
-    if run_status.failed?
-      content = "Chef Client raised an exception\n"
-      @from = {:name => "root", :address => "root@#{run_status.node.fqdn}"} if @from.nil?
-      content << run_status.formatted_exception
-      @flow.push_to_team_inbox(:subject => "Chef Client run on #{run_status.node} failed!",
-        :content => content,
-        :tags => ["chef", run_status.node.chef_environment, run_status.node.name], :from => @from)
+      def report
+        if run_status.failed?
+          content = "Chef Client raised an exception:<br/>"
+          content << run_status.formatted_exception
+          content << "<br/>"
+          content << run_status.backtrace
+
+          @from = {:name => "root", :address => "root@#{run_status.node.fqdn}"} if @from.nil?
+
+          @flow.push_to_team_inbox(:subject => "Chef Client run on #{run_status.node} failed!",
+            :content => content,
+            :tags => ["chef", run_status.node.chef_environment, run_status.node.name], :from => @from)
+        end
+      end
     end
   end
 end
