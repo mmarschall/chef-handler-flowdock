@@ -25,9 +25,11 @@ class FlowdockHandler < Chef::Handler
   end
 
   def report
-    unless false #success?
+    unless false #run_status.success?
+      content = "Chef Client raised an exception\n"
+      content << run_status.formatted_exception if run_status.failed?
       @flow.push_to_team_inbox(:subject => "Chef Client run on #{run_status.node} failed!",
-        :content => "Chef Client raised the following exception\n" << run_status.formatted_exception || "",
+        :content => content,
         :tags => ["chef", run_status.node.chef_environment, run_status.node.name])
     end
   end
