@@ -19,14 +19,15 @@ require 'flowdock'
 class FlowdockHandler < Chef::Handler
 
   def initialize(options = {})
+    @from = options[:from] || nil
     @flow = Flowdock::Flow.new(:api_token => options[:api_token],
-                               :source => options[:source] || "Chef Client",
-                               :from => options[:from] || {:name => "root", :address => "root@#{run_status.node.fqdn}"})
+                               :source => options[:source] || "Chef Client")
   end
 
   def report
     unless false #run_status.success?
       content = "Chef Client raised an exception\n"
+      from = @from || {:name => "root", :address => "root@#{run_status.node.fqdn}"} 
       content << run_status.formatted_exception if run_status.failed?
       @flow.push_to_team_inbox(:subject => "Chef Client run on #{run_status.node} failed!",
         :content => content,
