@@ -21,7 +21,7 @@ gem_package('chef-handler-flowdock'){action :nothing}.run_action(:install)
 
 chef_handler 'Chef::Handler::FlowdockHandler' do
   action :enable
-  attributes :api_token => "YOUR_FLOWDOCK_API_TOKEN",
+  attributes :api_token => "API_TOKEN",
              :from => {:name => "YOUR_NAME", :address => "YOUR_EMAIL"}
   source File.join(Gem::Specification.find{|s| s.name == 'chef-handler-flowdock'}.gem_dir,
     'lib', 'chef', 'handler', 'flowdock_handler.rb')

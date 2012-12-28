@@ -31,7 +31,7 @@ class Chef
           content = "Chef Client raised an exception:<br/>"
           content << run_status.formatted_exception
           content << "<br/>"
-          content << run_status.backtrace
+          content << run_status.backtrace.join("<br/>")
 
           @from = {:name => "root", :address => "root@#{run_status.node.fqdn}"} if @from.nil?
 
