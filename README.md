@@ -3,8 +3,8 @@ Description
 
 A Chef Exception  Handler for [Flowdock](http://www.flowdock.com).
 
-Usage
-=====
+Cookbook Install
+================
 
 1. Create a [Flowdock](http://www.flowdock.com) account.
 2. Create a Flowdock flow.
@@ -29,6 +29,25 @@ end
 ```
 
 See also: [Enable Chef Handler with LWRP](http://docs.opscode.com/essentials_handlers_install.html#lwrp-chef-handler)
+
+Manual Install
+==============
+
+1. Create a [Flowdock](http://www.flowdock.com) account.
+2. Create a Flowdock flow.
+3. Retrieve your Flowdock API Token.
+4. Install the `chef-handler-flowdock` Gem on your node:
+
+```
+gem install chef-handler-flowdock
+```
+
+5. Given you've retrieved your Flowdock API Token as **API_TOKEN**, add it to your `/etc/chef/client.rb` on your node:
+
+```
+require 'flowdock_handler'
+exception_handlers << Chef::Handler::FlowdockHandler.new(:api_token => "API_TOKEN")
+```
 
 
 Author
