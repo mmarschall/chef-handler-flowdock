@@ -21,7 +21,7 @@ class FlowdockHandler < Chef::Handler
   def initialize(options = {})
     @flow = Flowdock::Flow.new(:api_token => options[:api_token],
                                :source => options[:source] || "Chef Client",
-                               :from => options[:from] || nil)
+                               :from => options[:from] || {:name => "root", :address => "root@#{run_status.node.fqdn}"})
   end
 
   def report
