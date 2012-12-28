@@ -45,7 +45,7 @@ gem install chef-handler-flowdock
 5. Given you've retrieved your Flowdock API Token as **API_TOKEN**, add it to your `/etc/chef/client.rb` on your node:
 
 ```
-require 'flowdock_handler'
+require '/var/chef/handlers/flowdock_handler'
 exception_handlers << Chef::Handler::FlowdockHandler.new(:api_token => "API_TOKEN")
 ```
 

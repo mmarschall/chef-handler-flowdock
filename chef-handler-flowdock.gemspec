@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'chef-handler-flowdock'
-  s.version = '0.2.2'
+  s.version = '0.2.3'
   s.platform = Gem::Platform::RUBY
   s.summary = "A Chef handler that collects exceptions and reports them to Flowdock, a web-based team inbox and chat tool."
   s.description = s.summary
