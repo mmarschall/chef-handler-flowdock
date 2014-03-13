@@ -28,7 +28,7 @@ chef_handler 'Chef::Handler::FlowdockHandler' do
 end
 ```
 
-See also: [Enable Chef Handler with LWRP](http://docs.opscode.com/essentials_handlers_install.html#lwrp-chef-handler)
+See also: [Enable Chef Handler with LWRP](http://docs.opscode.com/handlers.html#run-from-recipes)
 
 Manual Install
 ==============
